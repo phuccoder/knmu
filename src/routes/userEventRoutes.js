@@ -7,6 +7,6 @@ router.get('/getAllUserEvents', getAllUserEvents);
 
 router.get('/totalUserEvents', getTotalUserEvents);
 
-router.put('/updateUserEventById/:id', updateUserEventById);
+router.put('/:id', updateUserEventById);
 
 export default router;

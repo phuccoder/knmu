@@ -140,7 +140,7 @@ import UserModel from "../models/userModel.js";
 
 /**
  * @swagger
- * /api/users/updateUser/{id}:
+ * /api/users/{id}:
  *   put:
  *     summary: Update user by ID
  *     tags: [Users]

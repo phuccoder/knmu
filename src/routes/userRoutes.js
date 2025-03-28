@@ -8,6 +8,6 @@ router.get("/getAllUsers", getAllUsers);
 
 router.get("/totalUsers", getTotalUsers);
 
-router.put("/updateUserById/:id", updateUserById);
+router.put("/:id", updateUserById);
 
 export default router;
