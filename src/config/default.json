@@ -1,0 +1,6 @@
+{
+  "vnp_TmnCode": "51W409Q6",
+  "vnp_HashSecret": "YOUR5L95LTE48XCDYRP64PDH2GCEYGA45C95_HASH_SECRET",
+  "vnp_Url": "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html",
+  "vnp_ReturnUrl": "http://localhost:8000/api/payments/vnpay_return"
+}
