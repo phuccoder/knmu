@@ -1,19 +1,17 @@
-// filepath: d:\event\src\config\db\db.js
 import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
-    dialect: "postgres",
-    logging: false, 
-});
+const databaseUrl = process.env.DATABASE_URL;
 
-try {
-    await sequelize.authenticate();
-    console.log("Connected to PostgreSQL database.");
-} catch (error) {
-    console.error("Unable to connect to the database:", error);
+if (!databaseUrl) {
+    throw new Error("DATABASE_URL environment variable is not set.");
 }
+
+const sequelize = new Sequelize(databaseUrl, {
+    dialect: "postgres",
+    logging: false,
+});
 
 export default sequelize;
