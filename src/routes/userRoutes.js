@@ -1,10 +1,13 @@
 // userRoutes.js
 import express from "express";
-import { getAllUsers } from "../controllers/usersController.js";
-import { authenticateToken } from "../middleware/authMiddleware.js";
+import { getAllUsers, getTotalUsers, updateUserById } from "../controllers/usersController.js";
 
 const router = express.Router();
 
 router.get("/getAllUsers", getAllUsers);
+
+router.get("/totalUsers", getTotalUsers);
+
+router.put("/updateUserById/:id", updateUserById);
 
 export default router;

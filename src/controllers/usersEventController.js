@@ -55,6 +55,95 @@ import UserEventModel from "../models/userEventModel.js";
  *                 message:
  *                   type: string
  */
+
+/**
+ * @swagger
+ * /api/userEvents/totalUserEvents:
+ *   get:
+ *     summary: Retrieve the total number of user events
+ *     description: Retrieves the total number of user events
+ *     tags: [UserEvents]
+ *     responses:
+ *       200:
+ *         description: Total number of user events
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 totalUserEvents:
+ *                   type: integer
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+
+/**
+ * @swagger
+ * /api/userEvents/{id}:
+ *   put:
+ *     summary: Update a user event by ID
+ *     description: Updates a user event's details by its ID.
+ *     tags: [UserEvents]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the user event
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               ReferralCode:
+ *                 type: string
+ *               TotalReferral:
+ *                 type: integer
+ *               CurrentRouteId:
+ *                 type: integer
+ *               CurrentRouteIndex:
+ *                 type: integer
+ *               IsFinishedEvent:
+ *                 type: boolean
+ *               IsUsedSkippedClass:
+ *                 type: boolean
+ *               IsDeleted:
+ *                 type: boolean
+ *     responses:
+ *       200:
+ *         description: UserEvent updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 userEvent:
+ *                   type: object
+ *       404:
+ *         description: UserEvent not found
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+
 export const getAllUserEvents = async (req, res) => {
     try {
         // Get page and limit from query parameters, with defaults
@@ -84,6 +173,37 @@ export const getAllUserEvents = async (req, res) => {
             totalPages,
             currentPage: page,
         });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+export const getTotalUserEvents = async (req, res) => {
+    try {
+        const totalUserEvents = await UserEventModel.count();
+
+        res.status(200).json({ totalUserEvents });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+export const updateUserEventById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updateData = req.body;
+
+        // Find the UserEvent by Id
+        const userEvent = await UserEventModel.findByPk(id);
+
+        if (!userEvent) {
+            return res.status(404).json({ message: "UserEvent not found" });
+        }
+
+        // Update the UserEvent with the provided data
+        await userEvent.update({ ...updateData, ModifiedDate: new Date() });
+
+        res.status(200).json({ message: "UserEvent updated successfully", userEvent });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
