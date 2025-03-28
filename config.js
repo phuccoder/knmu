@@ -26,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Use CORS middleware
 app.use(cors(corsOptions));
 
+// Connect to PostgreSQL
 (async () => {
   try {
     await sequelize.authenticate();
@@ -54,10 +55,10 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "https://khoinguonmeruoc.onrender.com",
+        url: process.env.PRODUCTION_URL || "https://khoinguonmeruoc.onrender.com", // Production URL
       },
       {
-        url: "http://localhost:8000",
+        url: process.env.LOCAL_URL || `http://localhost:${PORT}`, // Local URL
       },
     ],
     components: {
@@ -75,7 +76,6 @@ const swaggerOptions = {
       },
     ],
   },
-  // Update here to include the path to your controllers
   apis: ["./src/routes/*.js", "./src/controllers/*.js"],
 };
 
