@@ -108,7 +108,7 @@ export const getAllUserGifts = async (req, res) => {
  *             schema:
  *               type: object
  *               properties:
- *                 totalUsers:
+ *                 totalUserGift:
  *                   type: integer
  *       500:
  *         description: Server error
@@ -122,9 +122,9 @@ export const getAllUserGifts = async (req, res) => {
  */
 export const getTotalUserGifts = async (req, res) => {
     try {
-        const totalUsers = await UserGiftModel.count();
+        const totalUserGift = await UserGiftModel.count();
 
-        res.status(200).json({ totalUsers });
+        res.status(200).json({ totalUserGift });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }

@@ -197,6 +197,19 @@
         }
       }
     },
+    "/userGifts/getTotalUserGifts": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/signin": {
       "post": {
         "description": "",
@@ -310,6 +323,19 @@
             "type": "string"
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/getTotalUserGifts": {
+      "get": {
+        "description": "",
         "responses": {
           "200": {
             "description": "OK"
